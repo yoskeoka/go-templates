@@ -1,6 +1,7 @@
 # go-templates
 
-Go templates for gonew command
+Go templates for gonew command.
+About `gonew`, read [the article](https://go.dev/blog/gonew) about this command.
 
 ## cli/subcommand
 
