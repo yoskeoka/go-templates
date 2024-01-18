@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-
-	"github.com/yoskeoka/go-tempaltes/cli/subcommand/forecast"
+	"math/rand"
+	"time"
 )
 
 func weatherCmd() command {
@@ -63,7 +63,8 @@ type weatherGoodOpts struct {
 
 func weatherGood(opts *weatherGoodOpts, glOpts *globalOpts) error {
 	// You can call core logic package's function.
-	fmt.Printf("The weather is %s!\n", forecast.GoodWeather())
+	// fmt.Printf("The weather is %s!\n", forecast.GoodWeather())
+	fmt.Printf("The weather is %s!\n", GoodWeather())
 	return nil
 }
 
@@ -87,6 +88,30 @@ type weatherBadOpts struct {
 
 func weatherBad(opts *weatherBadOpts, glOpts *globalOpts) error {
 	// You can call core logic package's function.
-	fmt.Printf("The weather is %s!\n", forecast.BadWeather())
+	// fmt.Printf("The weather is %s!\n", forecast.BadWeather())
+	fmt.Printf("The weather is %s!\n", BadWeather())
 	return nil
+}
+
+/*
+  --------------- This code is just a copy of forecast package ---------------
+  This is here because gonew doesn't support rewriting of package import path yet.
+*/
+
+var rng = rand.New(rand.NewSource(time.Now().UnixNano()))
+
+// GoodWeather returns a good weather.
+func GoodWeather() string {
+	candidates := []string{
+		"Sunny", "Cloudy",
+	}
+	return candidates[rand.Intn(len(candidates))]
+}
+
+// BadWeather returns a bad weather.
+func BadWeather() string {
+	candidates := []string{
+		"Rainy", "Snowy", "Windy", "Foggy", "Thunderstorm",
+	}
+	return candidates[rand.Intn(len(candidates))]
 }
